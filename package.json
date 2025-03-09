@@ -4,11 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prestart": "tsup src/config --onSuccess \"node dist/database.js\"",
     "start": "node dist/server.js",
     "dev": "tsup src/server.ts --watch --onSuccess \"node dist/server.js\"",
-    "seed": "tsx src/db/seed.ts",
-    "build": "tsup",
+    "build": "tsup src/server.ts",
     "prettier:fix": "npx prettier --write .",
     "lint": "eslint 'src/**/*.ts' --fix"
   },

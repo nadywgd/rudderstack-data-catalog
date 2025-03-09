@@ -1,10 +1,21 @@
 import express from "express"
 import { env } from "config/env"
+import { Controller } from "interfaces/controller.interface"
+import { initializeDatabase } from "db/setup"
 class App {
   private app: express.Application
 
-  constructor() {
+  constructor(controllers: Controller[]) {
     this.app = express()
+
+    initializeDatabase()
+    this.initializeControllers(controllers)
+  }
+
+  private initializeControllers(controllers: Controller[]) {
+    controllers.forEach((controller) => {
+      this.app.use("/api", controller.router)
+    })
   }
 
   public listen() {
