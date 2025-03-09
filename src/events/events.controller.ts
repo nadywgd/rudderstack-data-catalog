@@ -1,7 +1,8 @@
 import { Controller } from "interfaces/controller.interface"
 import { EventService } from "./events.service"
-import e, { Request, Response } from "express"
-import { request } from "http"
+import { NextFunction, Request, Response } from "express"
+import validationMiddleware from "middleware/validation.middleware"
+import { eventSchema, PaginatedEventsRequestSchema } from "./events.validation"
 
 export class EventController extends Controller {
   private eventService = new EventService()
@@ -12,10 +13,14 @@ export class EventController extends Controller {
   }
 
   protected initializeRoutes() {
-    this.router.get(`${this.path}`, this.getEvents),
-      this.router.post(`${this.path}`, this.createEvent),
-      this.router.get(`${this.path}/:id`, this.getEventById),
-      this.router.put(`${this.path}/:id`, this.updateEvent),
+    this.router.get(
+      `${this.path}`,
+      validationMiddleware(PaginatedEventsRequestSchema),
+      this.getEvents
+    ),
+      this.router.post(`${this.path}`, validationMiddleware(eventSchema), this.createEvent),
+      this.router.get(`${this.path}/:id`,  this.getEventById),
+      this.router.put(`${this.path}/:id`,validationMiddleware(eventSchema), this.updateEvent),
       this.router.delete(`${this.path}/:id`, this.deleteEvent)
   }
 
@@ -29,9 +34,13 @@ export class EventController extends Controller {
     response.json(events)
   }
 
-  private createEvent = async (request: Request, response: Response) => {
-    const event = await this.eventService.createEvent(request.body)
+  private createEvent = async (request: Request, response: Response, next: NextFunction) => {
+try{    const event = await this.eventService.createEvent(request.body)
     response.status(201).json(event)
+}
+    catch (error) {
+      next(error)
+    }
   }
 
   private getEventById = async (request: Request, response: Response) => {
@@ -53,7 +62,7 @@ export class EventController extends Controller {
     if (updatedEvent) {
       response.json(updatedEvent)
     } else {
-      response.status(404).json({ message: "Event not found" })
+      response.status(404).json({ message: "Event not Found" })
     }
   }
 
@@ -61,10 +70,6 @@ export class EventController extends Controller {
     const eventId = parseInt(request.params.id, 10)
 
     const result = await this.eventService.deleteEvent(eventId)
-    if (result) {
-      response.status(204).send()
-    } else {
-      response.status(404).json({ message: "Event not found" })
-    }
+    response.status(204).send(result)
   }
 }

@@ -6,9 +6,10 @@ async function createTables() {
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     type VARCHAR(50) CHECK (type IN ('track', 'identify', 'alias', 'screen', 'page')) NOT NULL,
-    description TEXT,
+    description TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT unique_type_name UNIQUE (type, name)
     )
 `)
 }

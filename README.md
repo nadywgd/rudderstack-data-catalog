@@ -133,3 +133,5 @@ Example response:
 
 - **Authentication & Authorization**: Implement role-based access control for more secure API access.
 - **API Rate Limiting**: Protect the API from abuse by adding rate limiting.
+- **Extend Error Middleware**: Extend error middleware to handle more error types.
+

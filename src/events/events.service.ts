@@ -1,6 +1,7 @@
 import { PaginatedRequestParams, PaginatedResponse } from "interfaces/api.interface"
 import { EventRepository } from "./events.repository"
 import { CreateEventPayload } from "./events.validation"
+import { NotFoundError } from "errors/not-found"
 
 export class EventService {
   private eventRepository = new EventRepository()
@@ -19,14 +20,26 @@ export class EventService {
   }
 
   public async getEventById(id: number): Promise<Event> {
-    return this.eventRepository.getEventById(id)
+    const event = this.eventRepository.getEventById(id)
+    if (!event) {
+      throw new NotFoundError("Event not found")
+    }
+    return event
   }
 
   public async updateEvent(id: number, eventData: CreateEventPayload): Promise<Event | null> {
-    return this.eventRepository.updateEvent(id, eventData)
+    const event = this.eventRepository.updateEvent(id, eventData)
+    if (!event) {
+      throw new NotFoundError("Event not found")
+    }
+    return event
   }
 
   public async deleteEvent(id: number): Promise<boolean> {
-    return this.eventRepository.deleteEvent(id)
+    const event = this.eventRepository.deleteEvent(id)
+    if (!event) {
+      throw new NotFoundError("Event not found")
+    }
+    return event
   }
 }
