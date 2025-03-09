@@ -1,28 +1,32 @@
-
 # RudderStack Data Catalog API
 
 ## Setup Instructions
 
 ### Prerequisites
+
 Ensure you have the following installed:
+
 - **Docker** and **Docker Compose**: For containerization and running the application
 - **Node.js**: For development environment setup
 
 ### Installation Steps
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/nadywgd/rudderstack-data-catalog.git
    cd rudderstack-data-catalog
    ```
 
 2. Install the required Node.js dependencies:
+
    ```bash
    npm install
    ```
 
 3. Configure the environment variables:
    Create a `.env` file at the root of the project, and add the following environment variables:
+
    ```env
    POSTGRES_DB=postgres
    POSTGRES_HOST=db
@@ -32,6 +36,7 @@ Ensure you have the following installed:
    ```
 
 4. Start the application and PostgreSQL database using Docker Compose:
+
    ```bash
    docker-compose up --build
    ```
@@ -43,6 +48,7 @@ Ensure you have the following installed:
 ## Deployment
 
 1. Build the Docker images and start the containers:
+
    ```bash
    docker-compose up --build -d
    ```
@@ -62,18 +68,22 @@ Ensure you have the following installed:
 This endpoint retrieves a list of events stored in the database.
 
 **Request:**
+
 - Method: `GET`
 - URL: `/events`
-  
+
 **Query Parameters:**
+
 - `limit`: The number of events to return (optional).
 - `cursor`: The ID of the event to start the pagination from (optional).
 
 **Response:**
+
 - Status: `200 OK`
 - Body: A paginated response containing the list of events.
 
 Example response:
+
 ```json
 {
   "data": [
@@ -97,6 +107,7 @@ Example response:
 ```
 
 **Fields:**
+
 - `data`: An array of event objects containing `id`, `name`, `type`, and `description`.
 - `nextCursor`: An object with the ID of the next item for pagination or `null` if there are no more events.
 
@@ -105,10 +116,12 @@ Example response:
 ## Key Design and Rationale
 
 1. **Database Design**:
+
    - **PostgreSQL** is chosen for its relational structure, making it easy to model the entities and relationships (Events, Properties, Tracking Plans).
    - The use of a **normalized** database schema helps ensure data consistency and reduces redundancy.
 
 2. **Paginated API**:
+
    - The **cursor-based pagination** approach was chosen to efficiently handle large data sets. By using a cursor, the client can request the next set of results without needing to keep track of page numbers, ensuring better performance with large datasets.
 
 3. **Dockerization**:

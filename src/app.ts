@@ -7,6 +7,7 @@ class App {
 
   constructor(controllers: Controller[]) {
     this.app = express()
+    this.app.use(express.json())
 
     initializeDatabase()
     this.initializeControllers(controllers)
