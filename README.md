@@ -277,6 +277,198 @@ Deletes an event by its ID.
 
 ---
 
+### **Property Model**
+
+### **1. Retrieve All Properties**
+
+#### **Endpoint:** `GET /propertes`
+
+Retrieves a paginated list of properties stored in the database.
+
+#### **Request:**
+
+- **Method:** `GET`
+- **URL:** `/properties`
+- **Query Parameters:**
+  - `limit`: The number of properties to return.
+  - `cursor` _(optional)_: The ID of the property to start pagination from.
+
+#### **Response:**
+
+- **Status:** `200 OK`
+- **Body:** A paginated response containing the list of property.
+
+---
+
+### **2. Retrieve a Single Property by ID**
+
+#### **Endpoint:** `GET /properties/:id`
+
+Retrieves a specific property by its ID.
+
+#### **Request:**
+
+- **Method:** `GET`
+- **URL:** `/properties/:id`
+- **Path Parameter:**
+  - `id` _(required)_: The ID of the property to retrieve.
+
+#### **Response:**
+
+- **Status:** `200 OK` _(if found)_
+- **Status:** `404 Not Found` _(if the property does not exist)_
+
+##### **Example Response:**
+
+```json
+{
+  "id": 1,
+  "name": "price",
+  "type": "number",
+  "description": "price of the product"
+}
+```
+
+##### **Error Response (404):**
+
+```json
+{
+  "message": "Property not Found"
+}
+```
+
+---
+
+### **3. Create a New Property**
+
+#### **Endpoint:** `POST /properties`
+
+Creates a new propety.
+
+#### **Request:**
+
+- **Method:** `POST`
+- **URL:** `/properties`
+- **Body:** (JSON)
+
+##### **Example Request Body:**
+
+```json
+{
+  "name": "price",
+  "type": "number",
+  "description": "price of the product"
+}
+```
+
+#### **Response:**
+
+- **Status:** `201 Created`
+- **Body:** The created property.
+
+##### **Example Response:**
+
+```json
+{
+  "id": 5,
+  "name": "price",
+  "type": "number",
+  "description": "price of the product"
+}
+```
+
+---
+
+### **4. Update a Property**
+
+#### **Endpoint:** `PUT /properties/:id`
+
+Updates an existing property.
+
+#### **Request:**
+
+- **Method:** `PUT`
+- **URL:** `/properties/:id`
+- **Path Parameter:**
+  - `id` _(required)_: The ID of the property to update.
+- **Body:** (JSON)
+
+##### **Example Request Body:**
+
+```json
+{
+  "name": "Updated Property Name",
+  "type": "number",
+  "description": "Updated property description"
+}
+```
+
+#### **Response:**
+
+- **Status:** `200 OK` _(if updated successfully)_
+- **Status:** `404 Not Found` _(if the property does not exist)_
+
+##### **Example Response:**
+
+```json
+{
+  "id": 1,
+  "name": "Updated Property Name",
+  "type": "boolean",
+  "description": "Updated property description"
+}
+```
+
+##### **Error Response (404):**
+
+```json
+{
+  "message": "Property not Found"
+}
+```
+
+---
+
+### **5. Delete a Property**
+
+#### **Endpoint:** `DELETE /properties/:id`
+
+Deletes an property by its ID.
+
+#### **Request:**
+
+- **Method:** `DELETE`
+- **URL:** `/properties/:id`
+- **Path Parameter:**
+  - `id` _(required)_: The ID of the property to delete.
+
+#### **Response:**
+
+- **Status:** `204 No Content` _(if deleted successfully)_
+- **Status:** `404 Not Found` _(if the property does not exist)_
+
+##### **Error Response (404):**
+
+```json
+{
+  "message": "Property not Found"
+}
+```
+
+---
+
+### **Summary of Endpoints**
+
+| Method | Endpoint          | Description                      |
+| ------ | ----------------- | -------------------------------- |
+| GET    | `/propeties`      | Retrieve a list of properties    |
+| GET    | `/properties/:id` | Retrieve a single property by ID |
+| POST   | `/properties`     | Create a new property            |
+| PUT    | `/properties/:id` | Update an existing property      |
+| DELETE | `/properties/:id` | Delete an property by ID         |
+
+---
+
 ## Key Design and Rationale
 
 1. **Database Design**:
