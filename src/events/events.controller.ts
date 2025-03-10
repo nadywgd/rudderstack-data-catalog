@@ -2,7 +2,8 @@ import { Controller } from "interfaces/controller.interface"
 import { EventService } from "./events.service"
 import { NextFunction, Request, Response } from "express"
 import validationMiddleware from "middleware/validation.middleware"
-import { eventSchema, PaginatedEventsRequestSchema } from "./events.validation"
+import { eventSchema } from "./events.validation"
+import { PaginatedEventsRequestSchema } from "interfaces/api.interface"
 
 export class EventController extends Controller {
   private eventService = new EventService()

@@ -1,6 +1,6 @@
 import { PaginatedRequestParams, PaginatedResponse } from "interfaces/api.interface"
 import { EventRepository } from "./events.repository"
-import { CreateEventPayload } from "./events.validation"
+import { EventPayload } from "./events.validation"
 import { NotFoundError } from "errors/not-found"
 
 export class EventService {
@@ -15,7 +15,7 @@ export class EventService {
     }
   }
 
-  public async createEvent(payload: CreateEventPayload): Promise<Event> {
+  public async createEvent(payload: EventPayload): Promise<Event> {
     return this.eventRepository.createEvent(payload)
   }
 
@@ -27,7 +27,7 @@ export class EventService {
     return event
   }
 
-  public async updateEvent(id: number, eventData: CreateEventPayload): Promise<Event | null> {
+  public async updateEvent(id: number, eventData: EventPayload): Promise<Event | null> {
     const event = this.eventRepository.updateEvent(id, eventData)
     if (!event) {
       throw new NotFoundError("Event not found")

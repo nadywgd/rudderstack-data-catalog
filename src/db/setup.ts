@@ -9,9 +9,21 @@ async function createTables() {
     description TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT unique_type_name UNIQUE (type, name)
+    CONSTRAINT events_unique_type_name UNIQUE (type, name)
     )
 `)
+
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS properties (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    type VARCHAR(50) CHECK (type IN ('string', 'number', 'boolean')) NOT NULL,
+    description TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT properties_unique_type_name UNIQUE (type, name)
+    )
+  `)
 }
 
 export const initializeDatabase = async () => {
