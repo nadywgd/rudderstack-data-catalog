@@ -1,7 +1,7 @@
 import pool from "config/database"
 import { PaginatedRequestParams } from "interfaces/api.interface"
 import { QueryResult } from "pg"
-import { CreateEventPayload } from "./events.validation"
+import { EventPayload } from "./events.validation"
 
 export class EventRepository {
   public async getEvents(params: PaginatedRequestParams) {
@@ -23,7 +23,7 @@ export class EventRepository {
     return result.rows
   }
 
-  public async createEvent(event: CreateEventPayload) {
+  public async createEvent(event: EventPayload) {
     const result = await pool.query<Event>(
       "INSERT INTO events (name, type, description) VALUES ($1, $2, $3) RETURNING *",
       [event.name, event.type, event.description]
@@ -39,7 +39,7 @@ export class EventRepository {
     return result.rows[0] || null
   }
 
-  public async updateEvent(id: number, eventData: CreateEventPayload) {
+  public async updateEvent(id: number, eventData: EventPayload) {
     const result = await pool.query<Event>(
       "UPDATE events SET name = $1, type = $2, description = $3, updated_at= now() WHERE id = $4 RETURNING *",
       [eventData.name, eventData.type, eventData.description, id]
