@@ -41,7 +41,7 @@ export class EventRepository {
 
   public async updateEvent(id: number, eventData: CreateEventPayload) {
     const result = await pool.query<Event>(
-      "UPDATE events SET name = $1, type = $2, description = $3 WHERE id = $4 RETURNING *",
+      "UPDATE events SET name = $1, type = $2, description = $3, updated_at= now() WHERE id = $4 RETURNING *",
       [eventData.name, eventData.type, eventData.description, id]
     )
     return result.rows[0] || null

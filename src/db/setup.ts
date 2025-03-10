@@ -17,7 +17,6 @@ async function createTables() {
 export const initializeDatabase = async () => {
   try {
     await createTables()
-    console.log("Database initialized successfully!")
   } catch (error) {
     console.error("Database initialization failed:", error)
   }

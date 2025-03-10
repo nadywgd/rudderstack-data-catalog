@@ -10,14 +10,9 @@ class App {
     this.app = express()
     this.app.use(express.json())
 
-
     initializeDatabase()
 
     this.initializeControllers(controllers)
-    this.initializeMiddlewares()
-  }
-
-  private initializeMiddlewares() {
     this.app.use(errorMiddleware)
   }
 
