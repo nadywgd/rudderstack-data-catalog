@@ -40,6 +40,19 @@ export class PropertyRepository {
     return result.rows[0] || null
   }
 
+  public async getPropertiesByEventId(id: number) {
+    const result = await pool.query<Event>(
+      `
+        SELECT p.id, p.name, p.type, ep.required, p.description
+        FROM properties p 
+        JOIN  event_properties ep ON p.id = ep.property_id
+        WHERE ep.event_id = $1
+        `,
+      [id]
+    )
+    return result.rows || null
+  }
+
   public async updateProperty(id: number, propertyData: PropertyPayload) {
     const result = await pool.query<Property>(
       "UPDATE properties SET name = $1, type = $2, description = $3, updated_at= now() WHERE id = $4 RETURNING *",

@@ -2,10 +2,12 @@ import { PaginatedRequestParams, PaginatedResponse } from "interfaces/api.interf
 import { TrackingPlanRepository } from "./tracking_plans.repository"
 import { TrackingPlan } from "./tracking_plans.model"
 import { EventRepository } from "events/events.repository"
+import { PropertyRepository } from "properties/properties.repository"
 
 export class TrackingPlanService {
   private trackingPlanRepository = new TrackingPlanRepository()
   private eventRepository = new EventRepository()
+  private propertyRepository = new PropertyRepository()
 
   public async getTrackingPlans(
     params: PaginatedRequestParams
@@ -16,9 +18,19 @@ export class TrackingPlanService {
       trackingPlans.map(async (trackingPlan) => {
         const events = await this.eventRepository.getEventsByTrackingPlanId(trackingPlan.id)
 
+        const eventsWithProperties = await Promise.all(
+            events.map(async (event) => {
+              const properties = await this.propertyRepository.getPropertiesByEventId(event.id)
+  
+              return {
+                ...event,
+                properties
+              }
+            })
+          )
         return {
           ...trackingPlan,
-          events
+          events: eventsWithProperties
         }
       })
     )

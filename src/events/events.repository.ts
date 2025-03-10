@@ -43,7 +43,7 @@ export class EventRepository {
   public async getEventsByTrackingPlanId(id: number) {
     const result = await pool.query<Event>(
       `
-        SELECT e.id, e.name, e.type, e.description, tpe.additional_properties
+        SELECT e.id, e.name, e.description, tpe.additional_properties
         FROM events e 
         JOIN  tracking_plan_events tpe ON e.id = tpe.event_id
         WHERE tpe.tracking_plan_id = $1
