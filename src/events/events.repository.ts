@@ -40,6 +40,19 @@ export class EventRepository {
     return result.rows[0] || null
   }
 
+  public async getEventsByTrackingPlanId(id: number) {
+    const result = await pool.query<Event>(
+      `
+        SELECT e.id, e.name, e.type, e.description, tpe.additional_properties
+        FROM events e 
+        JOIN  tracking_plan_events tpe ON e.id = tpe.event_id
+        WHERE tpe.tracking_plan_id = $1
+        `,
+      [id]
+    )
+    return result.rows || null
+  }
+
   public async updateEvent(id: number, eventData: EventPayload) {
     const result = await pool.query<Event>(
       "UPDATE events SET name = $1, type = $2, description = $3, updated_at= now() WHERE id = $4 RETURNING *",

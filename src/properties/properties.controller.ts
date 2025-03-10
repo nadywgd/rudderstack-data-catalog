@@ -18,14 +18,14 @@ export class PropertyController extends Controller {
       `${this.path}`,
       validationMiddleware(PaginatedDataRequestSchema),
       this.getProperties
-    ),
-      this.router.post(`${this.path}`, validationMiddleware(propertySchema), this.createProperty),
-      this.router.get(`${this.path}/:id`, this.getPropertyById),
+    )
+      this.router.post(`${this.path}`, validationMiddleware(propertySchema), this.createProperty)
+      this.router.get(`${this.path}/:id`, this.getPropertyById)
       this.router.put(
         `${this.path}/:id`,
         validationMiddleware(propertySchema),
         this.updateProperty
-      ),
+      )
       this.router.delete(`${this.path}/:id`, this.deleteProperty)
   }
 

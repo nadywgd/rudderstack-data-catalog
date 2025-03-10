@@ -18,10 +18,10 @@ export class EventController extends Controller {
       `${this.path}`,
       validationMiddleware(PaginatedDataRequestSchema),
       this.getEvents
-    ),
-      this.router.post(`${this.path}`, validationMiddleware(eventSchema), this.createEvent),
-      this.router.get(`${this.path}/:id`, this.getEventById),
-      this.router.put(`${this.path}/:id`, validationMiddleware(eventSchema), this.updateEvent),
+    )
+      this.router.post(`${this.path}`, validationMiddleware(eventSchema), this.createEvent)
+      this.router.get(`${this.path}/:id`, this.getEventById)
+      this.router.put(`${this.path}/:id`, validationMiddleware(eventSchema), this.updateEvent)
       this.router.delete(`${this.path}/:id`, this.deleteEvent)
   }
 
