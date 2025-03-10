@@ -70,17 +70,20 @@ Ensure you have the following installed:
 Retrieves a paginated list of events stored in the database.
 
 #### **Request:**
+
 - **Method:** `GET`
 - **URL:** `/events`
-- **Query Parameters:**  
-  - `limit`: The number of events to return.  
-  - `cursor` *(optional)*: The ID of the event to start pagination from.  
+- **Query Parameters:**
+  - `limit`: The number of events to return.
+  - `cursor` _(optional)_: The ID of the event to start pagination from.
 
 #### **Response:**
+
 - **Status:** `200 OK`
 - **Body:** A paginated response containing the list of events.
 
 ##### **Example Response:**
+
 ```json
 {
   "data": [
@@ -112,16 +115,19 @@ Retrieves a paginated list of events stored in the database.
 Retrieves a specific event by its ID.
 
 #### **Request:**
+
 - **Method:** `GET`
 - **URL:** `/events/:id`
-- **Path Parameter:**  
-  - `id` *(required)*: The ID of the event to retrieve.
+- **Path Parameter:**
+  - `id` _(required)_: The ID of the event to retrieve.
 
 #### **Response:**
-- **Status:** `200 OK` *(if found)*  
-- **Status:** `404 Not Found` *(if the event does not exist)*  
+
+- **Status:** `200 OK` _(if found)_
+- **Status:** `404 Not Found` _(if the event does not exist)_
 
 ##### **Example Response:**
+
 ```json
 {
   "id": 1,
@@ -132,6 +138,7 @@ Retrieves a specific event by its ID.
 ```
 
 ##### **Error Response (404):**
+
 ```json
 {
   "message": "Event not Found"
@@ -147,11 +154,13 @@ Retrieves a specific event by its ID.
 Creates a new event.
 
 #### **Request:**
+
 - **Method:** `POST`
 - **URL:** `/events`
 - **Body:** (JSON)
 
 ##### **Example Request Body:**
+
 ```json
 {
   "name": "Purchase Completed",
@@ -161,10 +170,12 @@ Creates a new event.
 ```
 
 #### **Response:**
+
 - **Status:** `201 Created`
 - **Body:** The created event.
 
 ##### **Example Response:**
+
 ```json
 {
   "id": 5,
@@ -183,13 +194,15 @@ Creates a new event.
 Updates an existing event.
 
 #### **Request:**
+
 - **Method:** `PUT`
 - **URL:** `/events/:id`
-- **Path Parameter:**  
-  - `id` *(required)*: The ID of the event to update.  
+- **Path Parameter:**
+  - `id` _(required)_: The ID of the event to update.
 - **Body:** (JSON)
 
 ##### **Example Request Body:**
+
 ```json
 {
   "name": "Updated Event Name",
@@ -199,10 +212,12 @@ Updates an existing event.
 ```
 
 #### **Response:**
-- **Status:** `200 OK` *(if updated successfully)*
-- **Status:** `404 Not Found` *(if the event does not exist)*  
+
+- **Status:** `200 OK` _(if updated successfully)_
+- **Status:** `404 Not Found` _(if the event does not exist)_
 
 ##### **Example Response:**
+
 ```json
 {
   "id": 1,
@@ -213,6 +228,7 @@ Updates an existing event.
 ```
 
 ##### **Error Response (404):**
+
 ```json
 {
   "message": "Event not Found"
@@ -228,16 +244,19 @@ Updates an existing event.
 Deletes an event by its ID.
 
 #### **Request:**
+
 - **Method:** `DELETE`
 - **URL:** `/events/:id`
-- **Path Parameter:**  
-  - `id` *(required)*: The ID of the event to delete.
+- **Path Parameter:**
+  - `id` _(required)_: The ID of the event to delete.
 
 #### **Response:**
-- **Status:** `204 No Content` *(if deleted successfully)*
-- **Status:** `404 Not Found` *(if the event does not exist)*  
+
+- **Status:** `204 No Content` _(if deleted successfully)_
+- **Status:** `404 Not Found` _(if the event does not exist)_
 
 ##### **Error Response (404):**
+
 ```json
 {
   "message": "Event not Found"
@@ -248,13 +267,13 @@ Deletes an event by its ID.
 
 ### **Summary of Endpoints**
 
-| Method | Endpoint        | Description                       |
-|--------|---------------|-----------------------------------|
-| GET    | `/events`      | Retrieve a list of events        |
-| GET    | `/events/:id`  | Retrieve a single event by ID    |
-| POST   | `/events`      | Create a new event               |
-| PUT    | `/events/:id`  | Update an existing event         |
-| DELETE | `/events/:id`  | Delete an event by ID            |
+| Method | Endpoint      | Description                   |
+| ------ | ------------- | ----------------------------- |
+| GET    | `/events`     | Retrieve a list of events     |
+| GET    | `/events/:id` | Retrieve a single event by ID |
+| POST   | `/events`     | Create a new event            |
+| PUT    | `/events/:id` | Update an existing event      |
+| DELETE | `/events/:id` | Delete an event by ID         |
 
 ---
 

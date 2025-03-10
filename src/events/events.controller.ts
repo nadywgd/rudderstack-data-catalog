@@ -3,7 +3,7 @@ import { EventService } from "./events.service"
 import { NextFunction, Request, Response } from "express"
 import validationMiddleware from "middleware/validation.middleware"
 import { eventSchema } from "./events.validation"
-import { PaginatedEventsRequestSchema } from "interfaces/api.interface"
+import { PaginatedDataRequestSchema } from "interfaces/api.interface"
 
 export class EventController extends Controller {
   private eventService = new EventService()
@@ -16,7 +16,7 @@ export class EventController extends Controller {
   protected initializeRoutes() {
     this.router.get(
       `${this.path}`,
-      validationMiddleware(PaginatedEventsRequestSchema),
+      validationMiddleware(PaginatedDataRequestSchema),
       this.getEvents
     ),
       this.router.post(`${this.path}`, validationMiddleware(eventSchema), this.createEvent),

@@ -2,6 +2,7 @@ import pool from "config/database"
 import { PaginatedRequestParams } from "interfaces/api.interface"
 import { QueryResult } from "pg"
 import { EventPayload } from "./events.validation"
+import { Event } from "./events.model"
 
 export class EventRepository {
   public async getEvents(params: PaginatedRequestParams) {

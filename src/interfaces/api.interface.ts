@@ -20,7 +20,7 @@ export interface PaginatedRequestParams {
   cursor?: number | null
 }
 
-export const PaginatedEventsRequestSchema = z.object({
+export const PaginatedDataRequestSchema = z.object({
   query: z.object({
     limit: z
       .string()

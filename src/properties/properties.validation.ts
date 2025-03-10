@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-export const propertiesSchema = z.object({
+export const propertySchema = z.object({
   body: z.object({
     name: z.string(),
     type: z.enum(["string", "number", "boolean"]),
@@ -8,4 +8,4 @@ export const propertiesSchema = z.object({
   })
 })
 
-export type PropertiesPayload = z.infer<typeof propertiesSchema>["body"]
+export type PropertyPayload = z.infer<typeof propertySchema>["body"]
