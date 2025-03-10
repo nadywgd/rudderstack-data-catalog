@@ -41,7 +41,7 @@ export class PropertyRepository {
   }
 
   public async getPropertiesByEventId(id: number) {
-    const result = await pool.query<Event>(
+    const result = await pool.query<Property>(
       `
         SELECT p.id, p.name, p.type, ep.required, p.description
         FROM properties p 
