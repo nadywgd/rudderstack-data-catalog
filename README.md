@@ -281,7 +281,7 @@ Deletes an event by its ID.
 
 ### **1. Retrieve All Properties**
 
-#### **Endpoint:** `GET /propertes`
+#### **Endpoint:** `GET /properties`
 
 Retrieves a paginated list of properties stored in the database.
 
@@ -466,6 +466,36 @@ Deletes an property by its ID.
 | POST   | `/properties`     | Create a new property            |
 | PUT    | `/properties/:id` | Update an existing property      |
 | DELETE | `/properties/:id` | Delete an property by ID         |
+
+---
+### **TrackingPlan Model**
+
+### **1. Retrieve All TrackingPlans**
+
+#### **Endpoint:** `GET /tracking_plans`
+
+Retrieves a paginated list of tracking plans stored in the database.
+
+#### **Request:**
+
+- **Method:** `GET`
+- **URL:** `/tracking_plans`
+- **Query Parameters:**
+  - `limit`: The number of properties to return.
+  - `cursor` _(optional)_: The ID of the property to start pagination from.
+
+#### **Response:**
+
+- **Status:** `200 OK`
+- **Body:** A paginated response containing the list of tracking plan.
+
+---
+
+### **Summary of Endpoints**
+
+| Method | Endpoint          | Description                       |
+| ------ | ----------------- | --------------------------------- |
+| GET    | `/tracking_plans` | Retrieve a list of tracking plans |
 
 ---
 
